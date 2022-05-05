@@ -1,4 +1,4 @@
-# UbuntuCustomWallpaper
+# PastePicture2Wallpaper
 
 キャラクターをUbuntu風の壁紙に貼り付けるプログラム。
 
