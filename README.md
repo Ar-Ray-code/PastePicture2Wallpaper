@@ -8,6 +8,10 @@
 
 Midasを用いて画像を単眼深度推定を行います。PCのリソースが厳しいのでGoogle Colabパワーを使います。（適宜画像パスは工夫してください）
 
+[export_depth.ipynb](./export_depth.ipynb)をチェックしてください。
+
+<br>
+
 一通り実行すると、`depth_result.png`が出力されます。
 
 <br>
@@ -16,7 +20,7 @@ Midasを用いて画像を単眼深度推定を行います。PCのリソース�
 
 > PyQtの使い方下手過ぎて申し訳ないです…
 
-`convert.py`を用いて深度の閾値を変更します。デフォルトでは150なので、そのまま`convertion`ボタンを押してもOKです。
+[`convert.py`](./convert.py)を用いて深度の閾値を変更します。デフォルトでは150なので、そのまま`convertion`ボタンを押してもOKです。
 
 ### オプション
 
