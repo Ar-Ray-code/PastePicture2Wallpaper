@@ -55,3 +55,9 @@ python3 convert.py -i ~/Downloads/image.jpg -d ~/Downloads/depth_result.png
 ## パラメータ
 
 現在は閾値のみ直接扱えます。パラメータもっと増やします…
+
+<br>
+
+## 参考
+
+https://axross-recipe.com/recipes/404 by [Kazuhito00](https://github.com/Kazuhito00/)
