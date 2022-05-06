@@ -12,11 +12,28 @@ Midasを用いて画像を単眼深度推定を行います。PCのリソース�
 
 <br>
 
-一通り実行すると、`depth_result.png`が出力されます。
+全て実行すると線画が`result.png`という名前でそのまま出力されます。ステップ3に進んでください。
+
+> Colabでは画像を見ながら閾値調整と確認が同時にできないので、最も下のコードセルのコメントアウトを外して`depth_result.png`をダウンロードしてステップ2に進んでください
+
+<br>
+
+Colabでは、OSの雰囲気に合わせて線の色を変更できます。
+
+- Mac風(灰色):パステルカラーの背景に合わせて半透明の灰色線画を出力
+- Mac風(白色):鮮やかな背景に半透明の白線画を出力
+- Windows風: 水色の背景にさらに明るい水色半透明の線画を出力
+- Ubuntu風: 紫-桃色の背景に馴染む桃色半透明の線画を出力
+
+![](./images_for_readme/export-variation.png)
 
 <br>
 
 ## 2. 画像を閾値を指定して距離を指定
+
+深度閾値が150で適当でない場合、リアルタイムで確認しながら閾値調整できます。
+
+<br>
 
 > PyQtの使い方下手過ぎて申し訳ないです…
 
@@ -46,7 +63,7 @@ python3 convert.py -i ~/Downloads/image.jpg -d ~/Downloads/depth_result.png
 
 ## 3. Gimpなどを使って合成
 
-壁紙をGimpなどで作ってください。
+壁紙をGimpやPowerPointなどで作ってください。
 
 - [使用した画像（StackExchange）](https://askubuntu.com/questions/1187569/where-to-find-default-ubuntu-purple-wallpaper-without-animals)
 
