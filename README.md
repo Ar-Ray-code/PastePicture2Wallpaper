@@ -8,7 +8,7 @@
 
 Midasを用いて画像を単眼深度推定を行います。PCのリソースが厳しいのでGoogle Colabパワーを使います。（適宜画像パスは工夫してください）
 
-[export_depth.ipynb (Colaboratry)](https://colab.research.google.com/github/Ar-Ray-code/PastePicture2Wallpaper/blob/main/PastePicture2Wallpaper.ipynb)をチェックしてください。
+[PastePicture2Wallpaper.ipynb (Colaboratry)](https://colab.research.google.com/github/Ar-Ray-code/PastePicture2Wallpaper/blob/main/PastePicture2Wallpaper.ipynb)をチェックしてください。
 
 <br>
 
