@@ -1,16 +1,13 @@
 # © 2022 Ar-Ray-code (GPL-3.0 license)
-
 import cv2
 import numpy as np
 import argparse
 import sys
-import os
 
 class image_utils:
     def median_filter(self, src, ksize):
         d = int((ksize-1)/2)
         h, w = src.shape[0], src.shape[1]
-
         dst = src.copy()
 
         for y in range(d, h - d):
@@ -18,48 +15,38 @@ class image_utils:
                 dst[y][x] = np.median(src[y-d:y+d+1, x-d:x+d+1])
         return dst
 
-    def export_edges_anime(self, image_raw: np.ndarray, depth_data: np.ndarray, threshold: int = 150):
-        mask = depth_data > threshold
+    def export_edges_anime(self, image_raw: np.ndarray, depth_data: np.ndarray, median_ksize: int = 3, morph_g_ksize: int = 3, depth_threshold: int = 150, canny_threshold: int = 150):
+        mask = depth_data > depth_threshold
         # maskを二値化
         mask = mask.astype(np.uint8) * 255
-
         # imageとmaskの合成
         result = cv2.bitwise_and(image_raw, image_raw, mask=mask)
 
-        return self.anime2line(result, median_ksize=3, morph_c_ksize=3, morph_g_ksize=3)
+        return self.anime2line(result, median_ksize=median_ksize, morph_g_ksize=morph_g_ksize, threshold=canny_threshold)
 
-        # result = cv2.cvtColor(result, cv2.COLOR_BGR2GRAY)
-        # # メディアンフィルタ
-        # result = self.median_filter(result, ksize=5)
-        # # Canny輪郭検出
-        # edges = cv2.Canny(result, 199, 200)
-        # # MorphologyEx
-        # kernel = np.ones((5, 5), np.uint8)
-        # edges = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, kernel)
-        # edges = cv2.morphologyEx(edges, cv2.MORPH_GRADIENT, kernel)
+    def anime2line(self, image_raw: np.ndarray, median_ksize: int = 3, morph_g_ksize: int = 3, threshold: int = 150):
+        edges = cv2.cvtColor(image_raw, cv2.COLOR_BGR2GRAY)
 
-        # # 色の反転
-        # edges = cv2.bitwise_not(edges)
-        # edges = edges.astype(np.uint8) * 255 * 255
-        # edges = cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR)
-
-        # return edges
-
-    def anime2line(self, image_raw: np.ndarray, median_ksize: int = 3, morph_g_ksize: int = 3):
-        result = cv2.cvtColor(image_raw, cv2.COLOR_BGR2GRAY)
-        # メディアンフィルタ
-        result = self.median_filter(result, ksize=median_ksize)
         # Canny輪郭検出
-        edges = cv2.Canny(result, 199, 200)
+        edges = cv2.Canny(edges, threshold, threshold)
+
         # MorphologyEx
-        # kernel_close = np.ones((morph_c_ksize, morph_c_ksize), np.uint8)
-        kernel_giant = np.ones((morph_g_ksize, morph_g_ksize), np.uint8)
-        edges = cv2.morphologyEx(edges, cv2.MORPH_GRADIENT, kernel_giant)
+        if morph_g_ksize == 1:
+            pass
+        else:
+            kernel_giant = np.ones((morph_g_ksize, morph_g_ksize), np.uint8)
+            edges = cv2.morphologyEx(edges, cv2.MORPH_GRADIENT, kernel_giant)
 
         # 色の反転
         edges = cv2.bitwise_not(edges)
         edges = edges.astype(np.uint8) * 255 * 255
         edges = cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR)
+
+        # メディアンフィルタ
+        if median_ksize == 1:
+            pass
+        else:
+            edges = self.median_filter(edges, ksize=median_ksize)
 
         return edges
 
@@ -120,7 +107,8 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--image', type=str, help='input image')
     parser.add_argument('-km', '--kernel-median', type=int, help='kernel size of median filter', default=1)
     parser.add_argument('-kg', '--kernel-morph-giant', type=int, help='kernel size of morphologyEx giant', default=3)
-    parser.add_argument('-o', '--output', type=str, help='output image')
+    parser.add_argument('-t', '--threshold', type=int, help='threshold of Canny', default=150)
+    parser.add_argument('-o', '--output', type=str, help='output image', default='output.png')
 
     args = parser.parse_args()
     if args.image is None:
@@ -131,6 +119,8 @@ if __name__ == '__main__':
 
     median_ksize = args.kernel_median
     morph_g_ksize = args.kernel_morph_giant
+    threshold = args.threshold
+    output_image = args.output
 
     print("")
     print("---> Anime2line by Ar-Ray <---")
@@ -138,16 +128,11 @@ if __name__ == '__main__':
     print("Input image: " + args.image)
     print("median_ksize:", median_ksize)
     print("morph_g_ksize:", morph_g_ksize)
+    print("threshold:", threshold)
     print("------------------------------")
     print("")
-
-
-    if args.output is None:
-        output_image = "output.png"
-    else:
-        output_image = args.output
     
-    image_raw = image_utils.anime2line(image_raw, median_ksize, morph_g_ksize=morph_g_ksize)
+    image_raw = image_utils.anime2line(image_raw, median_ksize=median_ksize, morph_g_ksize=morph_g_ksize, threshold=threshold)
 
     cv2.imwrite(output_image, image_raw)
     print("output image is saved as " + output_image)
