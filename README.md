@@ -75,6 +75,14 @@ python3 convert.py -i ~/Downloads/image.jpg -d ~/Downloads/depth_result.png
 
 <br>
 
+## 記事
+
+- [2022/05/24：背景を切り抜いて線画化するプログラムで壁紙生成（PastePicture2Wallpaper）](https://ar-ray.hatenablog.com/entry/2022/05/24/070000)
+- [2022/10/21：AI線画抽出を試す（Informative Drawings）](https://ar-ray.hatenablog.com/entry/2022/10/21/080000)
+- [2023/03/06：新たな背景除去AIで完璧なLin(y)ux壁紙を生成する（ISNet）](https://ar-ray.hatenablog.com/entry/2023/03/06/145756)
+
+<br>
+
 ## 参考
 
 https://axross-recipe.com/recipes/404 by [Kazuhito00](https://github.com/Kazuhito00/)
