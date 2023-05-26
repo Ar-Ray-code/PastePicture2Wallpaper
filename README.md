@@ -66,8 +66,6 @@ Colabでは、OSの雰囲気に合わせて線の色を変更できます。
 
 [`convert.py`](./convert.py)を用いて深度の閾値を変更します。デフォルトでは150なので、そのまま`convertion`ボタンを押してもOKです。
 
-</details>
-
 ### オプション
 
 - `-i` : 画像パス
@@ -87,6 +85,10 @@ python3 convert.py -i ~/Downloads/image.jpg -d ~/Downloads/depth_result.png
 <br>
 
 残念ながら完璧な線画は出力できないので、適宜修正してください。
+
+
+</details>
+
 
 <br>
 
